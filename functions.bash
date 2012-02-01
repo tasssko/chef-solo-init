@@ -8,7 +8,7 @@ mkdir_opt_skystack(){
 
 
 install_rubygems(){
-	local version="1.8.10"
+	local version="1.8.15"
 	
 	cd /tmp
 	wget http://production.cf.rubygems.org/rubygems/rubygems-$version.tgz

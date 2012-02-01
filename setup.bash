@@ -19,9 +19,8 @@ get_cookbook "chef-collectd" $LOCAL_PATH $COOKBOOK_PATH
 
 chef_solo_config
 apt-get update
-apt-get -y install make unzip ruby ruby1.9.1 ruby1.9.1-dev gcc lsb-release subversion
-
-install_rubygems
+apt-get -y install make unzip ruby ruby1.8 ruby1.8-dev libruby1.8-extras rubygems gcc lsb-release subversion
+gem update --system
 
 gem sources -a http://gems.opscode.com
 gem install json chef ohai --no-ri --no-rdoc
@@ -37,4 +36,4 @@ chmod +x /usr/bin/chef-solo
 #	chef-solo -c $SKYSTACK_BOOT_PATH/etc/solo.rb -j /tmp/dna.json >> /opt/skystack/logs/chef_install 2>&1 
 #fi
 
-echo "success" > ~/state
+echo "success" > $LOCAL_PATH/userdata_state
