@@ -18,7 +18,7 @@ get_cookbook "chef-collectd" $LOCAL_PATH $COOKBOOK_PATH
 
 
 chef_solo_config
-
+apt-get update
 apt-get -y install make unzip ruby ruby1.9.1 ruby1.9.1-dev gcc lsb-release subversion
 
 install_rubygems
