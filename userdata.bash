@@ -19,8 +19,8 @@ export SS_ENVIRONMENT=<% SS_ENVIRONMENT %>
 export SS_JURISDICTION=<% SS_JURISDICTION %>
 export SS_CLOUD=<% SS_CLOUD %>
 
-export LOCAL_PATH="/opt/skystack"
-export GITHUB_PATH="https://github.com/askoudros"
+LOCAL_PATH=/opt/skystack
+GITHUB_PATH=https://github.com/askoudros
 
 PREV_DIR=`pwd`
 mkdir -p $LOCAL_PATH; cd $LOCAL_PATH;
@@ -43,10 +43,11 @@ SS_JURISDICTION=$SS_JURISDICTION
 SS_CLOUD=$SS_CLOUD
 EOF
 
+apt-get install -y curl unzip
+
 curl -s -L -o $LOCAL_PATH/archives/chef-solo-init.zip "https://github.com/askoudros/chef-solo-init/zipball/master"
 cd $LOCAL_PATH/sources; unzip ../archives/chef-solo-init.zip; cd $LOCAL_PATH;
-ln -s $LOCAL_PATH/sources/`ls  ../sources | grep chef-solo-init` $LOCAL_PATH/chef-solo-init;
-chmod +x $LOCAL_PATH/chef-solo-init/setup; cd chef-solo-init;
+ln -s $LOCAL_PATH/sources/`ls sources | grep chef-solo-init` chef-solo-init; chmod +x $LOCAL_PATH/chef-solo-init/setup; cd chef-solo-init;
 	
-`$LOCAL_PATH/chef-solo-init/setup` 
+`$LOCAL_PATH/chef-solo-init/setup.bash` 
  

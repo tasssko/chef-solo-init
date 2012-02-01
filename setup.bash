@@ -5,7 +5,7 @@
 COOKBOOK_PATH="https://github.com/askoudros"
 LOCAL_PATH="/opt/skystack"
 
-if [ ! -d $LOCAL_PATH ];
+if [ ! -d $LOCAL_PATH ];then
 	mkdir_opt_skystack $LOCAL_PATH
 fi
 
