@@ -89,8 +89,8 @@ EOF
  
 #curl -k -o /tmp/dna.json -u $SS_APIUSER:$SS_APITOKEN $HTTP://$SS_BASE/$SS_ALIAS/servers/$SS_SERVER_ID.json?action=dna_only
 
-#if [ -e /opt/skystack/dna/dna.json ];then
-#	chef-solo -c $SKYSTACK_BOOT_PATH/etc/solo.rb -j /tmp/dna.json >> /opt/skystack/logs/chef_install 2>&1 
-#fi
+if [ -e /opt/skystack/dna/dna.json ];then
+	chef-solo -c $LOCAL_PATH/etc/solo.rb -j $LOCAL_PATH/dna/dna.json >> /opt/skystack/logs/chef_install 2>&1 
+fi
 
 echo "success" > $LOCAL_PATH/run/state
