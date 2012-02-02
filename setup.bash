@@ -11,7 +11,9 @@ if [ ! -d $LOCAL_PATH ];then
 fi
 
 #which cookbooks do we need ?
-get_cookbook "build-essentials" $LOCAL_PATH $COOKBOOK_PATH 
+get_cookbook "apt" $LOCAL_PATH $COOKBOOK_PATH 
+get_cookbook "build-essentials" $LOCAL_PATH $COOKBOOK_PATH
+get_cookbook "openssl" $LOCAL_PATH $COOKBOOK_PATH
 get_cookbook "apache2" $LOCAL_PATH $COOKBOOK_PATH 
 get_cookbook "php5" $LOCAL_PATH $COOKBOOK_PATH 
 get_cookbook "mysql" $LOCAL_PATH $COOKBOOK_PATH
@@ -23,6 +25,8 @@ chef_solo_config
 
 apt-get update
 apt-get -y install make unzip ruby1.8 ruby1.8-dev libruby1.8-extras rubygems gcc lsb-release subversion
+
+install_rubygems
 
 gem sources -a http://gems.opscode.com
 gem install json chef ohai --no-ri --no-rdoc

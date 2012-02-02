@@ -8,9 +8,9 @@ mkdir_opt_skystack(){
 
 
 install_rubygems(){
-	cd /tmp
+	cd /opt/skystack/archives
 	wget http://rubyforge.org/frs/download.php/38844/rubygems-update-1.2.0.gem
-	gem install /tmp/rubygems-update-1.2.0.gem
+	gem install /opt/skystack/archives/rubygems-update-1.2.0.gem
 }
 
 chef_solo_config(){
