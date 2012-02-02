@@ -43,9 +43,9 @@ cat > $chefdna <<EOF
     "recipes": [
         "skystack::default",
         "skystack::collectd",
-		"skystack::apache2",
-		"skystack::php",
-		"skystack::mysql"
+        "skystack::apache2",
+        "skystack::php",
+        "skystack::mysql"
     ],
     "sites": [
         {
@@ -70,26 +70,19 @@ cat > $chefdna <<EOF
             ]
         }
     ],
-    "skystack_php": {
-        "add_extensions": [
-            "mysql",
-            "mcrypt",
-            "xsl",
-            "apc",
-            "curl",
-            "memcache",
-            "imagick",
-            "ffmpeg",
-            "geoip",
-            "xdebug",
-            "gd",
-            "ldap",
-            "pgsql",
-            "fpdf",
-            "fileinfo",
-            "sqlite3"
-        ]
-    }
+    "skystack_php": [
+        {
+            "add_extensions": [
+                "mysql",
+                "mcrypt",
+                "xsl",
+                "curl",
+                "imagick",
+                "xdebug",
+                "gd"
+            ]
+        }
+    ]
 }
 EOF
 
