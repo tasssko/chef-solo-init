@@ -15,6 +15,9 @@ install_rubygems(){
 	tar xzf rubygems-$version.tgz
 	cd rubygems-$version
 	ruby setup.rb --no-format-executable
+	
+	#wget http://rubyforge.org/frs/download.php/38844/rubygems-update-1.2.0.gem
+	#gem install rubygems-update-1.2.0.gem
 }
 
 chef_solo_config(){
@@ -36,16 +39,17 @@ get_cookbook (){
 	local symlink_path=$2/cookbooks
 
 
-	get_github_zipball chef-$cookbook $local_path $github_path $symlink_path
+	get_github_zipball chef-$cookbook $cookbook $local_path $github_path $symlink_path 
   
 }
 
 get_github_zipball(){
 	
 	    local zipball=$1
-        local local_path=$2
-        local github_path=$3
-		local symlink_path=$4
+	    local destination=$2
+        local local_path=$3
+        local github_path=$4
+		local symlink_path=$5
 
 		cd $local_path; 
 
@@ -58,7 +62,7 @@ get_github_zipball(){
 				curl -s -L -o $local_path/archives/$zipball.zip "$github_path/$zipball/zipball/master"
                 cd $local_path/sources; unzip ../archives/$zipball.zip; cd $symlink_path; 
 				# simple way to find cookbooks
-				ln -s ../sources/`ls  ../sources | grep $zipball` $zipball
+				ln -s ../sources/`ls  ../sources | grep $zipball` $destination
     
     	else
 	
