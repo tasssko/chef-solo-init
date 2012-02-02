@@ -30,7 +30,7 @@ EOF
 
 get_cookbook (){
 
-	local cookbook=$1
+	local cookbook=chef-$1
 	local local_path=$2
 	local github_path=$3
 	local symlink_path=$2/cookbooks

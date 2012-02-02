@@ -11,11 +11,13 @@ if [ ! -d $LOCAL_PATH ];then
 fi
 
 #which cookbooks do we need ?
-get_cookbook "chef-apache2" $LOCAL_PATH $COOKBOOK_PATH 
-get_cookbook "chef-php5" $LOCAL_PATH $COOKBOOK_PATH 
-get_cookbook "chef-mysql" $LOCAL_PATH $COOKBOOK_PATH
-get_cookbook "chef-skystack" $LOCAL_PATH $COOKBOOK_PATH
-get_cookbook "chef-collectd" $LOCAL_PATH $COOKBOOK_PATH
+get_cookbook "build-essentials" $LOCAL_PATH $COOKBOOK_PATH 
+get_cookbook "apache2" $LOCAL_PATH $COOKBOOK_PATH 
+get_cookbook "php5" $LOCAL_PATH $COOKBOOK_PATH 
+get_cookbook "mysql" $LOCAL_PATH $COOKBOOK_PATH
+get_cookbook "skystack" $LOCAL_PATH $COOKBOOK_PATH
+get_cookbook "collectd" $LOCAL_PATH $COOKBOOK_PATH
+get_cookbook "collectd-plugins" $LOCAL_PATH $COOKBOOK_PATH
 
 chef_solo_config
 
@@ -29,9 +31,68 @@ find /var/lib -name "chef-solo" -exec ln -s '{}' /usr/bin/chef-solo \;
 
 chmod +x /usr/bin/chef-solo
 
+chefdna=/opt/skystack/dna/dna.json
+cat > $chefdna <<EOF
+{
+    "ss_monitor_fqdn": "",
+    "ss_server_fqdn": "",
+    "recipes": [
+        "skystack::default",
+        "skystack::collectd",
+		"skystack::apache2",
+		"skystack::php",
+		"skystack::mysql"
+    ],
+    "sites": [
+        {
+            "server_name": "blog.example.com",
+            "server_aliases": "blog.example.com",
+            "document_root": "/var/www/vhosts/blog.example.com",
+            "port": 80,
+            "is_enabled": 1
+        }
+    ],
+    "mysql_databases": [
+        {
+            "name": "wordpress_db",
+            "user": "wordpress_user",
+            "permissions": [
+                "SELECT",
+                "INSERT",
+                "UPDATE",
+                "DELETE",
+                "CREATE",
+                "DROP"
+            ]
+        }
+    ],
+    "skystack_php": {
+        "add_extensions": [
+            "mysql",
+            "mcrypt",
+            "xsl",
+            "apc",
+            "curl",
+            "memcache",
+            "imagick",
+            "ffmpeg",
+            "geoip",
+            "xdebug",
+            "gd",
+            "ldap",
+            "pgsql",
+            "fpdf",
+            "fileinfo",
+            "sqlite3"
+        ]
+    }
+}
+EOF
+
+ 
 #curl -k -o /tmp/dna.json -u $SS_APIUSER:$SS_APITOKEN $HTTP://$SS_BASE/$SS_ALIAS/servers/$SS_SERVER_ID.json?action=dna_only
 
-#if [ -e /tmp/dna.json ];then
+#if [ -e /opt/skystack/dna/dna.json ];then
 #	chef-solo -c $SKYSTACK_BOOT_PATH/etc/solo.rb -j /tmp/dna.json >> /opt/skystack/logs/chef_install 2>&1 
 #fi
 
