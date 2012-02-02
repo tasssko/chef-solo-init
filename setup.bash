@@ -96,4 +96,4 @@ EOF
 #	chef-solo -c $SKYSTACK_BOOT_PATH/etc/solo.rb -j /tmp/dna.json >> /opt/skystack/logs/chef_install 2>&1 
 #fi
 
-echo "success" > $LOCAL_PATH/userdata_state
+echo "success" > $LOCAL_PATH/run/state

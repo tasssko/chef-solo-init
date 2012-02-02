@@ -24,7 +24,7 @@ GITHUB_PATH=https://github.com/askoudros
 
 PREV_DIR=`pwd`
 mkdir -p $LOCAL_PATH; cd $LOCAL_PATH;
-mkdir -p archives sources cookbooks init etc backups bin logs run
+mkdir -p archives sources cookbooks init etc backups bin logs run dna
 cd $PREV_DIR;
 
 userdata=/opt/skystack/etc/userdata.conf
