@@ -15,7 +15,7 @@ get_cookbook "apt" $LOCAL_PATH $COOKBOOK_PATH
 get_cookbook "build-essential" $LOCAL_PATH $COOKBOOK_PATH
 get_cookbook "openssl" $LOCAL_PATH $COOKBOOK_PATH
 get_cookbook "apache2" $LOCAL_PATH $COOKBOOK_PATH 
-get_cookbook "php5" $LOCAL_PATH $COOKBOOK_PATH 
+get_cookbook "php" $LOCAL_PATH $COOKBOOK_PATH 
 get_cookbook "mysql" $LOCAL_PATH $COOKBOOK_PATH
 get_cookbook "skystack" $LOCAL_PATH $COOKBOOK_PATH
 get_cookbook "collectd" $LOCAL_PATH $COOKBOOK_PATH
