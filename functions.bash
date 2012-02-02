@@ -8,16 +8,9 @@ mkdir_opt_skystack(){
 
 
 install_rubygems(){
-	local version="1.8.15"
-	
 	cd /tmp
-	wget http://production.cf.rubygems.org/rubygems/rubygems-$version.tgz
-	tar xzf rubygems-$version.tgz
-	cd rubygems-$version
-	ruby setup.rb --no-format-executable
-	
-	#wget http://rubyforge.org/frs/download.php/38844/rubygems-update-1.2.0.gem
-	#gem install rubygems-update-1.2.0.gem
+	wget http://rubyforge.org/frs/download.php/38844/rubygems-update-1.2.0.gem
+	gem install /tmp/rubygems-update-1.2.0.gem
 }
 
 chef_solo_config(){
