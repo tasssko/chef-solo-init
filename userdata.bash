@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash\n
 # Skystack will fill in this information before sending this script to the cloud vendor
 export SS_SERVER_ID=<% SS_SERVER_ID %>
 export SS_STACK_ID=<% SS_STACK_ID %>

@@ -30,13 +30,13 @@ EOF
 
 get_cookbook (){
 
-	local cookbook=chef-$1
+	local cookbook=$1
 	local local_path=$2
 	local github_path=$3
 	local symlink_path=$2/cookbooks
 
 
-	get_github_zipball $cookbook $local_path $github_path $symlink_path
+	get_github_zipball chef-$cookbook $local_path $github_path $symlink_path
   
 }
 
