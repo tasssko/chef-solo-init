@@ -93,4 +93,8 @@ if [ -e /opt/skystack/dna/dna.json ];then
 	chef-solo -c $LOCAL_PATH/etc/solo.rb -j $LOCAL_PATH/dna/dna.json >> /opt/skystack/logs/chef_install 2>&1 
 fi
 
+chmod +x $LOCAL_PATH/chef-solo-init/register.bash
+
+`$LOCAL_PATH/chef-solo-init/register.bash`
+
 echo "success" > $LOCAL_PATH/run/state
