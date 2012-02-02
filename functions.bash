@@ -46,7 +46,7 @@ get_cookbook (){
 get_github_zipball(){
 	
 	    local zipball=$1
-	    local destination=$2
+	    local symlink_name=$2
         local local_path=$3
         local github_path=$4
 		local symlink_path=$5
@@ -62,8 +62,8 @@ get_github_zipball(){
 				curl -s -L -o $local_path/archives/$zipball.zip "$github_path/$zipball/zipball/master"
                 cd $local_path/sources; unzip ../archives/$zipball.zip; cd $symlink_path; 
 				# simple way to find cookbooks
-				ln -s ../sources/`ls  ../sources | grep $zipball` $destination
-    
+				ln -s ../sources/`ls  ../sources | grep $zipball` $symlink_name
+
     	else
 	
 	            apt-get -y install curl
@@ -74,7 +74,7 @@ get_github_zipball(){
 				curl -s -L -o archives/$zipball.zip "$github_path/$zipball/zipball/master"
 	            cd $local_path/sources; unzip ../archives/$zipball.zip; cd $local_path/cookbooks; 
 				# simple way to find cookbooks
-				ln -s ../sources/`ls  ../sources | grep $zipball` $zipball
+				ln -s ../sources/`ls  ../sources | grep $zipball` $symlink_name
         fi
 
 }
