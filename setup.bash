@@ -12,7 +12,7 @@ fi
 
 #which cookbooks do we need ?
 get_cookbook "apt" $LOCAL_PATH $COOKBOOK_PATH 
-get_cookbook "build-essentials" $LOCAL_PATH $COOKBOOK_PATH
+get_cookbook "build-essential" $LOCAL_PATH $COOKBOOK_PATH
 get_cookbook "openssl" $LOCAL_PATH $COOKBOOK_PATH
 get_cookbook "apache2" $LOCAL_PATH $COOKBOOK_PATH 
 get_cookbook "php5" $LOCAL_PATH $COOKBOOK_PATH 
