@@ -89,7 +89,6 @@ cat > $chefdna <<EOF
                 "xsl",
                 "curl",
                 "imagick",
-                "xdebug",
                 "gd"
             ]
         }
