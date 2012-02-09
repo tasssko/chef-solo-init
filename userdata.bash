@@ -47,7 +47,7 @@ EOF
 
 apt-get install -y curl unzip
 
-curl -s -L -o $LOCAL_PATH/archives/chef-solo-init.zip "https://github.com/askoudros/chef-solo-init/zipball/master"
+curl -s -L -o $LOCAL_PATH/archives/chef-solo-init.zip "https://github.com/askoudros/chef-solo-init/zipball/with_new_relic"
 cd $LOCAL_PATH/sources; unzip ../archives/chef-solo-init.zip; cd $LOCAL_PATH;
 ln -s $LOCAL_PATH/sources/`ls sources | grep chef-solo-init` chef-solo-init; chmod +x $LOCAL_PATH/chef-solo-init/setup.bash; cd chef-solo-init;
 	
