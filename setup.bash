@@ -20,6 +20,7 @@ get_cookbook "mysql" $LOCAL_PATH $COOKBOOK_PATH
 get_cookbook "skystack" $LOCAL_PATH $COOKBOOK_PATH
 get_cookbook "collectd" $LOCAL_PATH $COOKBOOK_PATH
 get_cookbook "collectd-plugins" $LOCAL_PATH $COOKBOOK_PATH
+get_cookbook "newrelic" $LOCAL_PATH $COOKBOOK_PATH
 
 chef_solo_config
 
@@ -45,8 +46,16 @@ cat > $chefdna <<EOF
         "skystack::collectd",
         "skystack::apache2",
         "skystack::php",
-        "skystack::mysql"
+        "skystack::mysql",
+		"skystack::newrelic"
     ],
+	"newrelic_agent":[
+		{
+			"app_name":"My New Blog",
+			"license_key":"",
+			"is_php_enabled":1
+		}
+	],
     "sites": [
         {
             "server_name": "blog.example.com",
