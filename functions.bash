@@ -1,5 +1,10 @@
 #!/bin/bash
 
+
+get_config_items(){
+	source '/opt/skystack/etc/userdata.conf'
+}
+
 mkdir_opt_skystack(){
 	local local_path=$1
 	mkdir -p $local_path; cd $local_path;

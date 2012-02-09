@@ -18,6 +18,7 @@ export SS_ROLE=<% SS_ROLE %>
 export SS_ENVIRONMENT=<% SS_ENVIRONMENT %>
 export SS_JURISDICTION=<% SS_JURISDICTION %>
 export SS_CLOUD=<% SS_CLOUD %>
+export NEW_RELIC_LICENSE="enter your new relic license here"
 
 LOCAL_PATH=/opt/skystack
 GITHUB_PATH=https://github.com/askoudros
@@ -41,6 +42,7 @@ SS_ROLE=$SS_ROLE
 SS_ENVIRONMENT=$SS_ENVIRONMENT
 SS_JURISDICTION=$SS_JURISDICTION
 SS_CLOUD=$SS_CLOUD
+NEW_RELIC_LICENSE=$NEW_RELIC_LICENSE
 EOF
 
 apt-get install -y curl unzip

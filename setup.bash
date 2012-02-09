@@ -10,6 +10,8 @@ if [ ! -d $LOCAL_PATH ];then
 	mkdir_opt_skystack $LOCAL_PATH
 fi
 
+get_config_items
+
 #which cookbooks do we need ?
 get_cookbook "apt" $LOCAL_PATH $COOKBOOK_PATH 
 get_cookbook "build-essential" $LOCAL_PATH $COOKBOOK_PATH
@@ -52,7 +54,7 @@ cat > $chefdna <<EOF
 	"newrelic_agent":[
 		{
 			"app_name":"My New Blog",
-			"license_key":"",
+			"license_key":"$NEW_RELIC_LICENSE",
 			"is_php_enabled":1
 		}
 	],
