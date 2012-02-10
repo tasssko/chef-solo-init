@@ -1,8 +1,28 @@
 #!/bin/bash
 
 
+prepare_base_system(){
+	apt-get update
+	apt-get -y install make unzip ruby1.8 ruby1.8-dev libruby1.8-extras rubygems gcc lsb-release subversion
+
+	install_rubygems
+
+	gem sources -a http://gems.opscode.com
+	gem install json chef ohai --no-ri --no-rdoc
+
+	find /var/lib -name "chef-solo" -exec ln -s '{}' /usr/bin/chef-solo \; 
+	chmod +x /usr/bin/chef-solo
+	
+}
+
 get_config_items(){
 	source '/opt/skystack/etc/userdata.conf'
+}
+
+register_with_skystack(){
+	local local_path=$1	
+	chmod +x $local_path/chef-solo-init/register.bash
+	`$local_path/chef-solo-init/register.bash`
 }
 
 mkdir_opt_skystack(){
@@ -18,7 +38,7 @@ install_rubygems(){
 	gem install /opt/skystack/archives/rubygems-update-1.2.0.gem
 }
 
-chef_solo_config(){
+save_chef_solo_config(){
 chefsolo=/opt/skystack/etc/solo.rb
 cat > $chefsolo <<EOF
 file_cache_path "/tmp/chef"

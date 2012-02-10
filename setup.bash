@@ -10,6 +10,10 @@ if [ ! -d $LOCAL_PATH ];then
 	mkdir_opt_skystack $LOCAL_PATH
 fi
 
+# register this server with Skystack (http request to server resource and action=register_only)
+register_with_skystack
+
+#read config file you could do source /opt/skystack/userdata.conf
 get_config_items
 
 #which cookbooks do we need ?
@@ -24,87 +28,16 @@ get_cookbook "collectd" $LOCAL_PATH $COOKBOOK_PATH
 get_cookbook "collectd-plugins" $LOCAL_PATH $COOKBOOK_PATH
 get_cookbook "newrelic" $LOCAL_PATH $COOKBOOK_PATH
 
-chef_solo_config
+save_chef_solo_config
 
-apt-get update
-apt-get -y install make unzip ruby1.8 ruby1.8-dev libruby1.8-extras rubygems gcc lsb-release subversion
+#prepare this server to run chef which will continue the installation
+prepare_base_system
 
-install_rubygems
-
-gem sources -a http://gems.opscode.com
-gem install json chef ohai --no-ri --no-rdoc
-
-find /var/lib -name "chef-solo" -exec ln -s '{}' /usr/bin/chef-solo \; 
-
-chmod +x /usr/bin/chef-solo
-
-chefdna=/opt/skystack/dna/dna.json
-cat > $chefdna <<EOF
-{
-    "ss_monitor_fqdn": "",
-    "ss_server_fqdn": "",
-    "recipes": [
-        "skystack::default",
-        "skystack::collectd",
-        "skystack::apache2",
-        "skystack::php",
-        "skystack::mysql",
-		"skystack::newrelic"
-    ],
-	"newrelic_agent":[
-		{
-			"app_name":"My New Blog",
-			"license_key":"$NEW_RELIC_LICENSE",
-			"is_php_enabled":1
-		}
-	],
-    "sites": [
-        {
-            "server_name": "blog.example.com",
-            "server_aliases": "blog.example.com",
-            "document_root": "/var/www/vhosts/blog.example.com",
-            "port": 80,
-            "is_enabled": 1
-        }
-    ],
-    "mysql_databases": [
-        {
-            "name": "wordpress_db",
-            "user": "wordpress_user",
-            "permissions": [
-                "SELECT",
-                "INSERT",
-                "UPDATE",
-                "DELETE",
-                "CREATE",
-                "DROP"
-            ]
-        }
-    ],
-    "skystack_php": [
-        {
-            "add_extensions": [
-                "mysql",
-                "mcrypt",
-                "xsl",
-                "curl",
-                "imagick",
-                "gd"
-            ]
-        }
-    ]
-}
-EOF
-
- 
-#curl -k -o /tmp/dna.json -u $SS_APIUSER:$SS_APITOKEN $HTTP://$SS_BASE/$SS_ALIAS/servers/$SS_SERVER_ID.json?action=dna_only
+# we fetch the meta-data for this server
+curl -u $SS_APIUSER:$SS_APITOKEN -o /opt/skystack/dna/dna.json -XGET "https://my.skystack.com/$ALIAS/servers/$SS_SERVER_ID.json?action=dna_only"
 
 if [ -e /opt/skystack/dna/dna.json ];then
 	chef-solo -c $LOCAL_PATH/etc/solo.rb -j $LOCAL_PATH/dna/dna.json >> /opt/skystack/logs/chef_install 2>&1 
 fi
-
-chmod +x $LOCAL_PATH/chef-solo-init/register.bash
-
-`$LOCAL_PATH/chef-solo-init/register.bash`
 
 echo "success" > $LOCAL_PATH/run/state
