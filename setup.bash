@@ -34,7 +34,7 @@ save_chef_solo_config
 prepare_base_system
 
 # we fetch the meta-data for this server
-curl -u $SS_APIUSER:$SS_APITOKEN -o /opt/skystack/dna/dna.json -XGET "https://my.skystack.com/$ALIAS/servers/$SS_SERVER_ID.json?action=dna_only"
+curl -u $SS_APIUSER:$SS_APITOKEN -o /opt/skystack/dna/dna.json -XGET "https://my.skystack.com/$SS_ALIAS/servers/$SS_SERVER_ID.json?action=dna_only"
 
 if [ -e /opt/skystack/dna/dna.json ];then
 	chef-solo -c $LOCAL_PATH/etc/solo.rb -j $LOCAL_PATH/dna/dna.json >> /opt/skystack/logs/chef_install 2>&1 
